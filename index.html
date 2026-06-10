@@ -551,7 +551,7 @@ async function envoyerAMUBox() {
 
 // ─── CYCLE DES STATUTS ──────────────────────────────────────
 // absent → present → retard1 → retard2 → absent
-const CYCLE  = ['absent','present','retard1','retard2'];
+const CYCLE  = ['present','absent','retard1','retard2'];
 const LABELS = { absent:'Absent·e', present:'Présent·e', retard1:'Retard < 15 min', retard2:'Retard > 15 min' };
 const BADGES = { absent:'—', present:'✓', retard1:'⏱', retard2:'⚠' };
 
@@ -664,7 +664,7 @@ function getHeureLabel() {
 
 function getColor(idx) { return COLORS[idx % COLORS.length]; }
 function initials(p, n) { return (p[0]+(n[0]||'')).toUpperCase(); }
-function getStatut(id)  { return statuts[id] || 'absent'; }
+function getStatut(id)  { return statuts[id] || 'present'; }
 
 function avatarHTML(s, size=64) {
   const idx = STUDENTS.findIndex(x=>x.id===s.id);
