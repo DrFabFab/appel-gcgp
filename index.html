@@ -403,7 +403,13 @@ function updateMatières() {
   sel.appendChild(autre);
 }
 
-// Init au chargement
+// Init au chargement — S1 de sept à jan, S2 de fev à juillet
+function initSemestre() {
+  const mois = new Date().getMonth() + 1; // 1=jan ... 12=dec
+  const sem = (mois >= 9 || mois === 1) ? 'S1' : 'S2';
+  document.getElementById('inp-semestre').value = sem;
+  updateMatières();
+}
 
 // ─── CONFIG GOOGLE SHEETS ────────────────────────────────────
 const GSHEETS_URL = 'https://script.google.com/macros/s/AKfycbwGwwAdBWU95kjAxM56bHlzs6lS9UfGfGUSgp-5MINP4fBOdKasG8e5k2brMrauMm7P5A/exec';
@@ -621,7 +627,7 @@ let statuts = {}; // id -> 'absent'|'present'|'retard1'|'retard2'
 let filterTD = 'all', filterTP = 'all';
 
 document.getElementById('inp-date').value = new Date().toISOString().slice(0,10);
-updateMatières();
+initSemestre();
 
 // Pré-sélectionner l'horaire le plus proche
 (function() {
@@ -1008,5 +1014,67 @@ function showTab(name) {
 
 renderGrid();
 </script>
+
+<!-- MODALE ACCUEIL -->
+<div id="modal-accueil" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:20px;padding:32px;max-width:480px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,.2)">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:48px;margin-bottom:8px">📋</div>
+      <h2 style="font-size:20px;font-weight:800;color:#1e3a5f">Feuille d'appel BUT1 GCGP</h2>
+      <p style="font-size:13px;color:#6b7280;margin-top:4px">IUT Marseille — 2025-2026</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:#f0f9ff;border-radius:10px;border-left:4px solid #0ea5e9">
+        <span style="font-size:22px">1️⃣</span>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#0c4a6e">Choisissez le cours et l'horaire</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">Sélectionnez le semestre, la matière, l'heure de début et la date.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:#f0fdf4;border-radius:10px;border-left:4px solid #22c55e">
+        <span style="font-size:22px">2️⃣</span>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#14532d">Filtrez le groupe</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">Choisissez TDA, TDB ou TP1-4 selon votre cours.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:#fefce8;border-radius:10px;border-left:4px solid #eab308">
+        <span style="font-size:22px">3️⃣</span>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#713f12">Faites l'appel</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">Cliquez sur chaque étudiant pour changer son statut :<br>
+            <span style="color:#16a34a;font-weight:600">✓ Présent</span> →
+            <span style="color:#f59e0b;font-weight:600">⏱ Retard &lt;15</span> →
+            <span style="color:#ef4444;font-weight:600">⚠ Retard &gt;15</span> →
+            <span style="color:#9ca3af;font-weight:600">— Absent</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:#f5f3ff;border-radius:10px;border-left:4px solid #7c3aed">
+        <span style="font-size:22px">4️⃣</span>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#4c1d95">Envoyez dans Récap</div>
+          <div style="font-size:12px;color:#555;margin-top:2px">Allez dans l'onglet <b>Récap</b> puis cliquez <b>📤 Envoyer</b> pour transmettre les données.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="display:flex;gap:10px">
+      <button onclick="fermerAccueil(true)" style="flex:1;padding:12px;border-radius:10px;border:1.5px solid #d1d5db;background:#fff;font-size:13px;font-weight:600;color:#6b7280;cursor:pointer">
+        Ne plus afficher
+      </button>
+      <button onclick="fermerAccueil(false)" style="flex:2;padding:12px;border-radius:10px;border:none;background:#1e3a5f;color:#fff;font-size:14px;font-weight:700;cursor:pointer">
+        C'est parti ! 🚀
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
