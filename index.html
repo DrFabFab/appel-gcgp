@@ -682,7 +682,7 @@ let statuts = {}; // id -> 'absent'|'present'|'retard1'|'retard2'
 let filterTD = 'all', filterTP = 'all';
 
 document.getElementById('inp-date').value = new Date().toISOString().slice(0,10);
-initSemestre();
+// initSemestre() appelé dans le bloc auth ci-dessous
 
 // Pré-sélectionner l'horaire le plus proche
 (function() {
