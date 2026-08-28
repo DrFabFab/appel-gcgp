@@ -206,7 +206,7 @@
   <div id="panel-appel">
     <div class="top-row">
       <select id="inp-semestre" onchange="updateMatières()" style="min-width:90px;padding:8px 12px;border-radius:8px;border:1.5px solid #d1d5db;font-size:13px;outline:none;background:#fff;color:#111;cursor:pointer">
-        <option value="S1">S1</option>
+        <option value="S1" selected>S1</option>
         <option value="S2">S2</option>
       </select>
       <select id="inp-seance" style="flex:2;min-width:200px;padding:8px 12px;border-radius:8px;border:1.5px solid #d1d5db;font-size:13px;outline:none;background:#fff;color:#111">
@@ -1092,7 +1092,17 @@ function showTab(name) {
   if (name==='bdd')   renderBDD();
 }
 
-renderGrid();
+// ─── INIT ─────────────────────────────────────────────────────
+if (checkAuth()) {
+  const auth = getAuth();
+  const hu = document.getElementById('header-user');
+  if (hu && auth) hu.textContent = auth.nom;
+  renderGrid();
+  initSemestre();
+  afficherAccueil();
+} else {
+  showLoginModal();
+}
 </script>
 
 
