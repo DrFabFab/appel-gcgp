@@ -1093,16 +1093,18 @@ function showTab(name) {
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-if (checkAuth()) {
-  const auth = getAuth();
-  const hu = document.getElementById('header-user');
-  if (hu && auth) hu.textContent = auth.nom;
-  renderGrid();
-  initSemestre();
-  afficherAccueil();
-} else {
-  showLoginModal();
-}
+document.addEventListener('DOMContentLoaded', function() {
+  if (checkAuth()) {
+    const auth = getAuth();
+    const hu = document.getElementById('header-user');
+    if (hu && auth) hu.textContent = auth.nom;
+    renderGrid();
+    initSemestre();
+    afficherAccueil();
+  } else {
+    showLoginModal();
+  }
+});
 </script>
 
 
